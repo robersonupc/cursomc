@@ -8,28 +8,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 
 @Entity
-public class Category implements Serializable {
-	
+public class Brand implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private String description;
 	
-	@ManyToMany(mappedBy = "categories")
-	private List<Product> products = new ArrayList<>();
+	//private List<Product> products = new ArrayList<>();
 	
-	public Category() {		
+	public Brand() {		
 	}
 
-	public Category(Integer id, String name) {
+	public Brand(Integer id, String name, String description) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
 	}
 
 	public Integer getId() {
@@ -48,14 +48,21 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	@ManyToMany(mappedBy = "categories")
-	public List<Product> getProducts() {
-		return products;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setDescription(String description) {
+		this.description = description;
 	}
+
+//	public List<Product> getProducts() {
+//		return products;
+//	}
+//
+//	public void setProducts(List<Product> products) {
+//		this.products = products;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -73,7 +80,7 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Brand other = (Brand) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -82,5 +89,5 @@ public class Category implements Serializable {
 		return true;
 	}
 	
-
+	
 }
