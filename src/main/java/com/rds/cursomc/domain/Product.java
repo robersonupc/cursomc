@@ -12,11 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-public class Product implements Serializable{
+public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -24,27 +26,42 @@ public class Product implements Serializable{
 	private Double price;
 	private String title;
 	private String description;
-	
-	
+	private String line;
+	private String type;
+	private String color;
+	private String capacity;
+	private String dimension;
+	private String compound;
+	private String recommendation;
+	private String note;
+	private String deadline;
+
 	//private List<Brand> brands = new ArrayList<>();
-	
+
+	@JsonBackReference
 	@ManyToMany
-		@JoinTable(name = "product_category",
-			joinColumns = @JoinColumn(name = "product_id"),
-			inverseJoinColumns = @JoinColumn(name = "category_id")
-	)
+	@JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
-	
-	public Product() {		
+
+	public Product() {
 	}
 
-	public Product(Integer id, String name, String title, Double price, String description) {
+	public Product(Integer id, String name, String title, Double price, String description, String line, String type, String color, String capacity, String dimension, String compound, String recommendation, String note, String deadline) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.price = price;
 		this.description = description;
+		this.line = line;
+		this.type = type;
+		this.color = color;
+		this.capacity = capacity;
+		this.dimension = dimension;
+		this.compound = compound;
+		this.recommendation = recommendation;
+		this.note = note;
+		this.deadline = deadline;
 	}
 
 	public Integer getId() {
@@ -87,10 +104,82 @@ public class Product implements Serializable{
 		this.description = description;
 	}
 
+	public String getLine() {
+		return line;
+	}
+
+	public void setLine(String line) {
+		this.line = line;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setTypee(String type) {
+		this.line = type;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(String capacity) {
+		this.capacity = capacity;
+	}
+	
+	public String getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(String dimension) {
+		this.dimension = line;
+	}
+
+	public String getCompound() {
+		return compound;
+	}
+
+	public void setCompound(String compound) {
+		this.compound = compound;
+	}
+
+	public String getRecommendation() {
+		return recommendation;
+	}
+
+	public void setRecommendation(String recommendation) {
+		this.recommendation = recommendation;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
+	}
+
 //	public List<Brand> getBrands() {
 //		return brands;
 //	}
-
+//
 //	public void setBrands(List<Brand> brands) {
 //		this.brands = brands;
 //	}
@@ -127,7 +216,5 @@ public class Product implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 
 }
