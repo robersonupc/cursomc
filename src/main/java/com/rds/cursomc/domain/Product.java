@@ -10,7 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -36,10 +37,12 @@ public class Product implements Serializable {
 	private String note;
 	private String deadline;
 
-	//private List<Brand> brands = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "brand_id")
+	private Brand brand;
 
 	@JsonBackReference
-	@ManyToMany
+	@OneToMany
 	@JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
 
@@ -176,20 +179,20 @@ public class Product implements Serializable {
 		this.deadline = deadline;
 	}
 
-//	public List<Brand> getBrands() {
-//		return brands;
-//	}
-//
-//	public void setBrands(List<Brand> brands) {
-//		this.brands = brands;
-//	}
-
 	public List<Category> getCategories() {
 		return categories;
 	}
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+
+	public Brand getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Brand brand) {
+		this.brand = brand;
 	}
 
 	@Override

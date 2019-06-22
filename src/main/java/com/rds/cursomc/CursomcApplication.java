@@ -8,9 +8,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.rds.cursomc.domain.Category;
+import com.rds.cursomc.domain.City;
 import com.rds.cursomc.domain.Product;
+import com.rds.cursomc.domain.State;
+import com.rds.cursomc.repositories.BrandRepository;
 import com.rds.cursomc.repositories.CategoryRepository;
+import com.rds.cursomc.repositories.CityRepository;
 import com.rds.cursomc.repositories.ProductRepository;
+import com.rds.cursomc.repositories.StateRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
@@ -20,6 +25,15 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private CityRepository cityRepository;
+	
+	@Autowired
+	private StateRepository stateRepository;
+	
+	@Autowired
+	private BrandRepository brandRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -45,6 +59,24 @@ public class CursomcApplication implements CommandLineRunner {
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
 		
 		productRepository.saveAll(Arrays.asList(p1));
+		
+		State st1 = new State(null, "Goiás", "GO");
+		State st2 = new State(null, "Mato Grosso", "MT");
+		State st3 = new State(null, "Minas Gerais", "MG");
+		State st4 = new State(null, "São Paulo", "SP");
+		State st5 = new State(null, "Tocantins", "TO");
+		State st6 = new State(null, "Distrito Federal", "DF");
+		
+		City c1 = new City(null, "Goiânia", st1);
+		City c2 = new City(null, "Cuiabá", st2);
+		City c3 = new City(null, "Uberlândia", st3);
+		
+		st1.getCities().addAll(Arrays.asList(c1));
+		st2.getCities().addAll(Arrays.asList(c2));
+		st3.getCities().addAll(Arrays.asList(c3));
+		
+		stateRepository.saveAll(Arrays.asList(st1, st2, st3, st4, st5, st6));
+		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 	}
 	
