@@ -4,14 +4,17 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rds.cursomc.domain.enums.StatePayment;
 
 @Entity
 public class PaymentCombotion extends Payment {
 	
 	private static final long serialVersionUID = 1L;
-	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date datePayment;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dateDue;
 	
 	public PaymentCombotion() {		
