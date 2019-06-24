@@ -11,6 +11,7 @@ import com.rds.cursomc.domain.enums.StatePayment;
 public class PaymentCombotion extends Payment {
 	
 	private static final long serialVersionUID = 1L;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date datePayment;
 	

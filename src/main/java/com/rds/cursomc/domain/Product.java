@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -39,12 +38,12 @@ public class Product implements Serializable {
 	private String note;
 	private String deadline;
 
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name = "product_brand", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "brand_id"))
 	private List<Brand> brands = new ArrayList<>();
 
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany
 	@JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
