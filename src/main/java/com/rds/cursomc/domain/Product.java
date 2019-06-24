@@ -2,7 +2,9 @@ package com.rds.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,6 +47,9 @@ public class Product implements Serializable {
 	@OneToMany
 	@JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "id.product")
+	private Set<ItemPedido> itens = new HashSet<>();
 
 	public Product() {
 	}
@@ -65,6 +70,17 @@ public class Product implements Serializable {
 		this.recommendation = recommendation;
 		this.note = note;
 		this.deadline = deadline;
+	}
+	
+	public List<Pedido> getPedidos(){
+		
+		List<Pedido> lista = new ArrayList<>();
+		
+		for(ItemPedido x : itens) {
+			lista.add(x.getPedido());
+		}
+		
+		return lista;
 	}
 
 	public Integer getId() {
@@ -193,6 +209,14 @@ public class Product implements Serializable {
 
 	public void setBrands(List<Brand> brands) {
 		this.brands = brands;
+	}
+
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	@Override
