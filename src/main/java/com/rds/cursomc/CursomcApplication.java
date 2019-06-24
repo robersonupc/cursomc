@@ -1,5 +1,6 @@
 package com.rds.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,21 @@ import com.rds.cursomc.domain.Brand;
 import com.rds.cursomc.domain.Category;
 import com.rds.cursomc.domain.City;
 import com.rds.cursomc.domain.Client;
+import com.rds.cursomc.domain.Payment;
+import com.rds.cursomc.domain.PaymentCard;
+import com.rds.cursomc.domain.PaymentCombotion;
+import com.rds.cursomc.domain.Pedido;
 import com.rds.cursomc.domain.Product;
 import com.rds.cursomc.domain.State;
+import com.rds.cursomc.domain.enums.StatePayment;
 import com.rds.cursomc.domain.enums.TypeClient;
 import com.rds.cursomc.repositories.AddressRepository;
 import com.rds.cursomc.repositories.BrandRepository;
 import com.rds.cursomc.repositories.CategoryRepository;
 import com.rds.cursomc.repositories.CityRepository;
 import com.rds.cursomc.repositories.ClientRepository;
+import com.rds.cursomc.repositories.PaymentRepository;
+import com.rds.cursomc.repositories.PedidoRepository;
 import com.rds.cursomc.repositories.ProductRepository;
 import com.rds.cursomc.repositories.StateRepository;
 
@@ -46,6 +54,12 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private BrandRepository brandRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PaymentRepository paymentRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -113,7 +127,21 @@ public class CursomcApplication implements CommandLineRunner {
 		clientRepository.saveAll(Arrays.asList(cli1));
 		addressRepository.saveAll(Arrays.asList(e1, e2));
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		
+		Pedido ped1 = new Pedido(null, sdf.parse("24/06/2019 09:45"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("21/06/2019 14:45"), cli1, e2);
+		
+		Payment pgto1 = new PaymentCard(null, StatePayment.SETTLET, ped1, 6);
+		ped1.setPayment(pgto1);
+		
+		Payment pgto2 = new PaymentCombotion(null, StatePayment.PENDING, ped2, sdf.parse("24/06/2019 00:00"), null);
+		ped2.setPayment(pgto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		paymentRepository.saveAll(Arrays.asList(pgto1, pgto2));
 		
 	}
 	
