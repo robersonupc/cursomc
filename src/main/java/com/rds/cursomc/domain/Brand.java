@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Brand implements Serializable{
@@ -21,7 +23,8 @@ public class Brand implements Serializable{
 	private String name;
 	private String description;
 	
-	@OneToMany(mappedBy = "brand")	
+	@JsonManagedReference
+	@ManyToMany(mappedBy = "brands")
 	private List<Product> products = new ArrayList<>();
 	
 	public Brand() {		

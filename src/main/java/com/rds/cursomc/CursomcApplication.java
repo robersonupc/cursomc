@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.rds.cursomc.domain.Address;
+import com.rds.cursomc.domain.Brand;
 import com.rds.cursomc.domain.Category;
 import com.rds.cursomc.domain.City;
 import com.rds.cursomc.domain.Client;
@@ -53,19 +54,31 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
+		Brand br1 = new Brand(null, "Caterpillar", null);
+		Brand br2 = new Brand(null, "Komatsu", null);
+		Brand br3 = new Brand(null, "Tupperware", null);
+		
+		brandRepository.saveAll(Arrays.asList(br1, br2, br3));
+		
 		Category cat1 = new Category(null, "Servir");
 		Category cat2 = new Category(null, "Midro-ondas");
 		Category cat3 = new Category(null, "Refregerador");
 		Category cat4 = new Category(null, "Freezer");
 		
-		Product p1 = new Product(null, "Tupperware A Jarra Colors Vinho 2 Litros", "Deixe tudo mais organizado Tupperware CJarra Colors 2 Litros é na Rosa Tupperware", 104.90,
-				"A Jarra Colors com capacidade para 2 Litros, vem com um infusor que se encaixa na tampa e permite que você faça sua própria bebida aromatizada, como águas e chás com suas frutas preferidas, podendo sempre variar o sabor.",
-				"colors", "Jarra", "Vermelha", "2 litros", "21,4 cm (comp.) x 14 cm (larg.) x 23 cm (alt.)", "1 peça (Base e tampa)", null,	null, null);
-
-		
+		Product p1 = new Product(null, "Tupperware A Jarra Colors Vinho 2 Litros", "Deixe tudo mais organizado Tupperware CJarra Colors 2 Litros é na Rosa Tupperware", 
+				104.90, "A Jarra Colors com capacidade para 2 Litros, vem com um infusor que se encaixa na tampa e permite que você faça sua própria bebida aromatizada, como águas e chás com suas frutas preferidas.",
+		"Colors", "Jarra", "Vermelha", "2 litros", "21,4 cm (comp.) x 14 cm (larg.) x 23 cm (alt.)", "1 peça (Base e tampa)", 
+		"Não levar no freezer/congelador, micro-ondas ou forno. - Não lavar com o lado verde(áspero) da esponja, usar o lado macio para manter a beleza do seu produto por muito tempo! - Não use produtos químicos e abrasivos.",
+		" Não contém Bisfenol A - Bisfenol Free - Plásticos Usado na Tupperware: PP5 e LDPE4 - Atenderemos enquanto durar o estoque. - Se a tampa estiver muito apertada, deixe a tampa de molho em água morna durante 5 minutos.", 
+		"Para calcular o prazo de entrega é necessário somar o prazo do correio e o prazo do site. Prezamos pela satisfação de nossos clientes");
+				
 		cat1.getProducts().addAll(Arrays.asList(p1));
 		
+		br3.getProducts().addAll(Arrays.asList(p1));
+		
 		p1.getCategories().addAll(Arrays.asList(cat1));
+		
+		p1.getBrands().addAll(Arrays.asList(br3));
 		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4));
 		
