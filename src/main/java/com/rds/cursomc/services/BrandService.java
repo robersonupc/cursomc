@@ -38,10 +38,9 @@ public class BrandService {
 	}
 	
 	public Brand update(Brand obj) {
-		
-		find(obj.getId());
-		
-		return repo.save(obj);
+		Brand newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -67,5 +66,10 @@ public class BrandService {
 	public Brand fromDTO(BrandDTO objDto) {
 		
 		return new Brand(objDto.getId(), objDto.getName(), objDto.getDescription());
+	}
+	
+	private void updateData(Brand newObj, Brand obj) {
+		newObj.setName(obj.getName());
+		newObj.setDescription(obj.getDescription());
 	}
 }
