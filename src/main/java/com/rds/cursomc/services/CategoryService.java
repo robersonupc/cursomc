@@ -14,10 +14,20 @@ public class CategoryService {
 
 	@Autowired
 	private CategoryRepository repo;
-
+	
 	public Category find(Integer id) {
 		Optional<Category> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
+		if (obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
+					+ ", Tipo: " + Category.class.getName());
+		}
+		return null;
+		
 	}
+	
+	public Category insert(Category obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
 }
