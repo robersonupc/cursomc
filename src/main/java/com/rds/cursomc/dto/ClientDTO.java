@@ -2,33 +2,35 @@ package com.rds.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.rds.cursomc.domain.Brand;
+import com.rds.cursomc.domain.Client;
 
-public class BrandDTO implements Serializable {
+public class ClientDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@Length(min = 4, max = 80, message = "O tamanho deve ser entre 4 e 80 caracteres")
+	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
 	private String name;
 
-	@Length(max = 450, message = "O tamanho deve ter no máximo 450 caracteres")
-	private String description;
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Email(message = "E-mail inválido")
+	private String email;
 
-	public BrandDTO() {
-	}
-
-	public BrandDTO(Brand obj) {
+	public ClientDTO(Client obj) {
 
 		id = obj.getId();
 		name = obj.getName();
-		description = obj.getDescription();
+		email = obj.getEmail();
+	}
+
+	public ClientDTO() {
 	}
 
 	public Integer getId() {
@@ -47,12 +49,12 @@ public class BrandDTO implements Serializable {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
