@@ -58,6 +58,7 @@ public class Brand implements Serializable{
 		this.description = description;
 	}
 
+	@ManyToMany(mappedBy = "brands")
 	public List<Product> getProducts() {
 		return products;
 	}
