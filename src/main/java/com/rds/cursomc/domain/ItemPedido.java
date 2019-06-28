@@ -20,6 +20,10 @@ public class ItemPedido implements Serializable {
 	private Integer quantity;
 	private Double price;
 	
+	public double getSubTotal() {
+		return (price - desconto) * quantity;
+	}
+	
 	public ItemPedido() {		
 	}
 
