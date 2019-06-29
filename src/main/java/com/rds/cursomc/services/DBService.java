@@ -65,7 +65,7 @@ public class DBService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 
-	public void instaciateTestDatabase() throws ParseException {
+	public void instanciateTestDatabase() throws ParseException {
 		
 		Brand br1 = new Brand(null, "Caterpillar", null);
 		Brand br2 = new Brand(null, "Komatsu", null);
@@ -81,9 +81,6 @@ public class DBService {
 		Category cat6 = new Category(null, "Preparação");
 		Category cat7 = new Category(null, "Armazenagem");
 		Category cat8 = new Category(null, "PDA");
-		Category cat9 = new Category(null, "Freezer2");
-		Category cat10 = new Category(null, "Freezer3");
-		Category cat11 = new Category(null, "Freezer4");
 		
 		Product p1 = new Product(null, "Tupperware A Jarra Colors Vinho 2 Litros", "Deixe tudo mais organizado Tupperware CJarra Colors 2 Litros é na CerradoTupperware", 
 				104.90, "A Jarra Colors com capacidade para 2 Litros, vem com um infusor que se encaixa na tampa e permite que você faça sua própria bebida aromatizada, como águas e chás com suas frutas preferidas.",
@@ -176,7 +173,7 @@ public class DBService {
 		
 		p1.getBrands().addAll(Arrays.asList(br3));
 		
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8));
 		
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
 		
