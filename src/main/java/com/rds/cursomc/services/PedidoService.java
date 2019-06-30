@@ -35,11 +35,11 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
-//	@Autowired
-//	private ClientService clientService;
+	@Autowired
+	private ClientService clientService;
 	
-	//@Autowired
-	//private EmailService emailService;
+//	@Autowired
+//	private EmailService emailService;
 
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
@@ -51,7 +51,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
-		//obj.setCliente(clientService.find(obj.getClient().getId()));
+		obj.setClient(clientService.find(obj.getClient().getId()));
 		obj.getPayment().setStatePayment(StatePayment.PENDING);
 		obj.getPayment().setPedido(obj);
 		if (obj.getPayment() instanceof PaymentCombotion) {
@@ -68,6 +68,7 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		//emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
