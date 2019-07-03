@@ -5,17 +5,20 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rds.cursomc.domain.enums.Profile;
 import com.rds.cursomc.domain.enums.TypeClient;
 
 @Entity
@@ -34,6 +37,14 @@ public class Client implements Serializable {
 	@JsonIgnore
 	private String password;
 	
+	public Set<Profile> getProfiles(){
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Profile profile) {
+		profiles.add(profile.getCode());
+	}
+	
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Address> addresses = new ArrayList<>();
 	
@@ -41,11 +52,16 @@ public class Client implements Serializable {
 	@CollectionTable(name = "TELEPHONE")
 	private Set<String> telephones = new HashSet<>();
 	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PROFILES")
+	private Set<Integer> profiles = new HashSet<>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Client() {		
+		addPerfil(Profile.CLIENT);
 	}
 
 	public Client(Integer id, String name, String email, String cpfCnpj, TypeClient type, String password ) {
@@ -56,6 +72,7 @@ public class Client implements Serializable {
 		this.cpfCnpj = cpfCnpj;
 		this.type = (type == null) ? null : type.getCode();
 		this.password = password;
+		addPerfil(Profile.CLIENT);
 	}
 
 	public Integer getId() {

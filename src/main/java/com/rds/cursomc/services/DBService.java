@@ -20,6 +20,7 @@ import com.rds.cursomc.domain.PaymentCombotion;
 import com.rds.cursomc.domain.Pedido;
 import com.rds.cursomc.domain.Product;
 import com.rds.cursomc.domain.State;
+import com.rds.cursomc.domain.enums.Profile;
 import com.rds.cursomc.domain.enums.StatePayment;
 import com.rds.cursomc.domain.enums.TypeClient;
 import com.rds.cursomc.repositories.AddressRepository;
@@ -199,16 +200,23 @@ public class DBService {
 		stateRepository.saveAll(Arrays.asList(st1, st2, st3, st4, st5, st6));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
-		Client cli1 = new Client(null, "Roberson Santo", "robersonupc@gmail.com", "48843868179", TypeClient.PESSOAFISICA, pe.encode("123"));
+		Client cli1 = new Client(null, "Rosangela Santos", "komtec.komatsu@gmail.com", "48843868179", TypeClient.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelephones().addAll(Arrays.asList("6235772346", "62993256370"));
+		
+		Client cli2 = new Client(null, "Roberson Santos", "robersonupc@gmail.com", "31628382740", TypeClient.PESSOAFISICA, pe.encode("121"));
+		cli2.getTelephones().addAll(Arrays.asList("6293883321", "6234252625"));
+		cli2.addPerfil(Profile.ADMIN);
 		
 		Address e1 = new Address(null, "Rua JC305", "7A", "Quadra 21 Condomínio Lotus - Interfone 71", "Jardim do Cerrado 7", "74491607", cli1, c1);
 		Address e2 = new Address(null, "Av Anhaguera", "1804", "Edifícil Power center", "Centro", "74201982", cli1, c1);
 		
-		cli1.getAddresses().addAll(Arrays.asList(e1, e2));
+		Address e3 = new Address(null, "Rua JC305", "12A", "Quadra 23 Condomínio Lilás", "Jardim do Cerrado 7", "74491607", cli2, c1);
 		
-		clientRepository.saveAll(Arrays.asList(cli1));
-		addressRepository.saveAll(Arrays.asList(e1, e2));
+		cli1.getAddresses().addAll(Arrays.asList(e1, e2));
+		cli2.getAddresses().addAll(Arrays.asList(e3));
+		
+		clientRepository.saveAll(Arrays.asList(cli1, cli2));
+		addressRepository.saveAll(Arrays.asList(e1, e2, e3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		
