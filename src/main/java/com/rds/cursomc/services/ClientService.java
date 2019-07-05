@@ -14,11 +14,14 @@ import org.springframework.stereotype.Service;
 import com.rds.cursomc.domain.Address;
 import com.rds.cursomc.domain.City;
 import com.rds.cursomc.domain.Client;
+import com.rds.cursomc.domain.enums.Profile;
 import com.rds.cursomc.domain.enums.TypeClient;
 import com.rds.cursomc.dto.ClientDTO;
 import com.rds.cursomc.dto.ClientNewDTO;
 import com.rds.cursomc.repositories.AddressRepository;
 import com.rds.cursomc.repositories.ClientRepository;
+import com.rds.cursomc.security.UserSS;
+import com.rds.cursomc.services.exceptions.AuthorizationException;
 import com.rds.cursomc.services.exceptions.DataIntegratyException;
 import com.rds.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -35,6 +38,12 @@ public class ClientService {
 	private AddressRepository addressRepository;
 
 	public Client find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Client> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Client.class.getName()));
