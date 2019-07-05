@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 import com.rds.cursomc.domain.Brand;
 
 public class BrandDTO implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
