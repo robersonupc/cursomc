@@ -33,6 +33,7 @@ public class Client implements Serializable {
 	private String email;
 	private String cpfCnpj;
 	private Integer type;
+	private String imageUrl;
 	
 	@JsonIgnore
 	private String password;
@@ -149,6 +150,14 @@ public class Client implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override
