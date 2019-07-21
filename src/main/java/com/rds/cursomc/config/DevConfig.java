@@ -29,7 +29,7 @@ public class DevConfig {
 			return false;
 		}
 		
-		dbService.instanciateTestDatabase();
+		dbService.instantiateTestDatabase();
 		return true;
 	}
 	
@@ -37,5 +37,4 @@ public class DevConfig {
 	public EmailService emailService() {
 		return new SmtpEmailService();
 	}
-	
 }

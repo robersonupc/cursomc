@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,12 +40,12 @@ public class Product implements Serializable {
 	private String deadline;
 
 	@JsonIgnore
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name = "product_brand", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "brand_id"))
 	private List<Brand> brands = new ArrayList<>();
 
 	@JsonIgnore
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
 	

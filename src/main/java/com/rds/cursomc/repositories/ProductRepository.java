@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rds.cursomc.domain.Brand;
 import com.rds.cursomc.domain.Category;
 import com.rds.cursomc.domain.Product;
 
@@ -17,4 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Transactional(readOnly = true)
 	Page<Product> findDistintByNameContainingAndCategoriesIn(String name, List<Category> categories, Pageable pageRequest);
 
+	
+	@Transactional(readOnly = true)
+	Page<Product> findDistintByNameContainingAndBrandsIn(String name, List<Brand> brands, Pageable pageRequest);
 }

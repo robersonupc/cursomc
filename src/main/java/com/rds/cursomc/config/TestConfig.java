@@ -14,13 +14,13 @@ import com.rds.cursomc.services.MockEmailService;
 @Configuration
 @Profile("test")
 public class TestConfig {
-	
+
 	@Autowired
 	private DBService dbService;
 	
 	@Bean
-	public boolean instanciateDatabase() throws ParseException {
-		dbService.instanciateTestDatabase();
+	public boolean instantiateDatabase() throws ParseException {
+		dbService.instantiateTestDatabase();
 		return true;
 	}
 	
@@ -28,5 +28,4 @@ public class TestConfig {
 	public EmailService emailService() {
 		return new MockEmailService();
 	}
-
 }
