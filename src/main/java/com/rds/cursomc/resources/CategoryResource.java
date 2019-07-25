@@ -47,13 +47,12 @@ public class CategoryResource {
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDto, @PathVariable Integer id){
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDto, @PathVariable Integer id) {
 		Category obj = service.fromDTO(objDto);
-		obj.setId(id);		
-		obj = service.update(obj);		
+		obj.setId(id);
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
-		
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
